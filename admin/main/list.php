@@ -9,8 +9,8 @@ if($result){
 		$id = htmlspecialchars($row->id);
 		$name = htmlspecialchars($row->name);
 		$message = htmlspecialchars($row->message);
+		$category = htmlspecialchars($row->category);
 		$created = htmlspecialchars($row->created);
-		print("<li class='list-group-item'><a href='post.php?id=$id'>$id</a>: $name : $message ($created) <a href='delete_post.php?id=$id'>削除</a></li>");
+		print("<li class='list-group-item'><a href='index.php?id=$id&layout=post'>$id</a>: $name ： $category ：$message / $created <a href='index.php?id=$id&layout=delete'>削除</a></li>");
 	}
 }
-?>

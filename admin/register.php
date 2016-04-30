@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__.'include/mysqli.php';
+require_once __DIR__.'/include/mysqli.php';
 
 //ハッシュ化に使用する定数
 $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
@@ -38,7 +38,7 @@ if(!empty($_POST["username"]) && !empty($_POST["password"])){
       <p>エラー：既に存在するユーザ名です。</p>
     <?php else: ?>
     <?php endif; ?>
-    
+
       <form method="POST" action="register.php">
   <div class="input-group">
         <span class="input-group-addon">ユーザ名</span><input type="text" name="username" />

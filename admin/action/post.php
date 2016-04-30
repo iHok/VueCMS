@@ -1,7 +1,4 @@
 <?php
-require_once '../include/sessioncheck.php';
-require_once '../include/password.php';
-require_once '../include/mysqli.php';
 
 if ( !isset($_GET['id']) || $_GET['id'] == "" ){
     //プリペアドステートメントを作成　ユーザ入力を使用する箇所は?にしておく
