@@ -41,32 +41,35 @@ var example1 = new Vue({
 	  el: '#example-1',
 	  data: {
 	    items: [
-	      { message: 'Foo' },
-	      <?php
+<?php
+		function h($str) {
+		    return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
+		}
+		mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+		try {
+//		    $mysqli = new mysqli('localhost', 'root', '', 'testdb');
+		    $mysqli->set_charset('utf8');
+		    $rows = $mysqli->query('SELECT * FROM datas ORDER BY created DESC')->fetch_all(MYSQLI_ASSOC);
+		    $length = count($rows);     // 追加
+		    $no = 0;    // 追加
 
-	    			//datasテーブルから日付の降順でデータを取得
-	    			$result = $mysqli->query("SELECT * FROM datas ORDER BY created DESC");
-	    			if($result){
-	    				//1行ずつ取り出し
-	    				while($row = $result->fetch_object()){
-	    					//エスケープして表示
-	    					$id = htmlspecialchars($row->id);
-	    					$name = htmlspecialchars($row->name);
-	    					$message = nl2br(htmlspecialchars($row->message));
-	    					$category = htmlspecialchars($row->category);
-	    					$created = htmlspecialchars($row->created);
-	    					print("{ message: '$name' },");
-//	    					print("<li class='list-group-item'><a href='index.php?id=$id&layout=post'>$id</a>: $name ： $category ：$message / $created <a href='index.php?id=$id&layout=delete'>削除</a></li>");
-	    				}
-	    			}
-	    			?>
-	      { message: 'Ba<br>r' }
+		} catch (mysqli_sql_exception $e) {
+		    $error = $e->getMessage();
+		}
+		//header('Content-Type: text/html; charset=utf-8');
+		?>
+		<?php if (isset($error)): ?>
+		<?=h($error)?>
+		<?php else: ?>
+		<?php foreach ($rows as $row): ?>
+		{ message: '<?=h($row['name'])?>' }<?php $no++;if($no !== $length){echo ",";}?>
+
+		<?php endforeach; ?>
+		<?php endif; ?>
 
 	    ]
 	  }
 	})
 </script>
-
-<?php echo $message ?>
     </body>
 </html>
