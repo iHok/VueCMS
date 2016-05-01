@@ -1,9 +1,11 @@
 <?php
 if ( !isset($_GET['id']) || $_GET['id'] == "" ){
 $id = null; # $v1=30
+$name = $_SESSION["name"];
+$title = null;
 $message = null;
 $category = null;
-echo "if_id";
+$filename = null;
 } else{
 $id = $_GET['id']; # $v1=30
 echo "else_id";
@@ -12,13 +14,28 @@ $result = $mysqli->query("SELECT * FROM datas WHERE id=" . $id);
 if($result){
     $row = $result->fetch_object();
     //エスケープして表示
+    $id = htmlspecialchars($row->id);
     $name = htmlspecialchars($row->name);
+    $title = htmlspecialchars($row->title);
     $message = htmlspecialchars($row->message);
     $category = htmlspecialchars($row->category);
+    $filename = htmlspecialchars($row->filename);
     $created = htmlspecialchars($row->created);
  } else{
     echo "error";
 }
+}
+?>
+
+<?php
+if ( !isset($_GET['alert']) || $_GET['alert'] == "" ){
+	echo "!issetのelse";
+} else {
+	if ( $_GET['alert'] === "update" ){
+		echo $id."の記事をアップデートしました。";
+	} else {
+		echo "alertのelse";
+	}
 }
 ?>
 
@@ -27,8 +44,12 @@ if($result){
 	</ul>
   <form method="POST" action="action.php?id=<?php echo $id ?>&action=post">
         <div  class="input-group">
-            カテゴリ：<input name="category" type="text" class="form-control" value="<?php echo $category ?>"/><br>
+            ID：<?php echo $id ?><br>
+            名前：<input name="name" type="text" class="form-control" value="<?php echo $name ?>"/><br>
+            タイトル：<input name="title" type="text" class="form-control" value="<?php echo $title ?>"/><br>
            <textarea name="message" type="text" class="form-control" rows="4" cols="40"/><?php echo $message ?></textarea><br>
+            カテゴリ：<input name="category" type="text" class="form-control" value="<?php echo $category ?>"/><br>
+            ファイル名：<input name="filename" type="text" class="form-control" value="<?php echo $filename ?>"/><br>
         <span class="input-group-btn">
           <button type='submit' class="btn btn-default">送信</button>
         </span>

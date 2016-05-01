@@ -10,14 +10,14 @@ $errorMessage = "";
 // ログインボタンが押された場合
 if (isset($_POST["login"])) {
   // １．ユーザIDの入力チェック
-  if (empty($_POST["username"])) {
+  if (empty($_POST["name"])) {
     $errorMessage = "ユーザIDが未入力です。";
   } else if (empty($_POST["password"])) {
     $errorMessage = "パスワードが未入力です。";
   }
 
   // ２．ユーザIDとパスワードが入力されていたら認証する
-  if (!empty($_POST["username"]) && !empty($_POST["password"])) {
+  if (!empty($_POST["name"]) && !empty($_POST["password"])) {
     // mysqlへの接続
     $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS);
     if ($mysqli->connect_errno) {
@@ -29,10 +29,10 @@ if (isset($_POST["login"])) {
     $mysqli->select_db(DB_NAME);
 
     // 入力値のサニタイズ
-    $username = $mysqli->real_escape_string($_POST["username"]);
-
+    $name = $mysqli->real_escape_string($_POST["name"]);
     // クエリの実行
-    $query = "SELECT * FROM users WHERE username = '" . $username . "'";
+    $query = "SELECT * FROM users WHERE name = '" . $name . "'";
+	echo $query;
     $result = $mysqli->query($query);
     if (!$result) {
       print('クエリーが失敗しました。' . $mysqli->error);
@@ -52,7 +52,7 @@ if (isset($_POST["login"])) {
     if (password_verify($_POST["password"], $db_hashed_pwd)) {
       // ４．認証成功なら、セッションIDを新規に発行する
       session_regenerate_id(true);
-      $_SESSION["username"] = $_POST["username"];
+      $_SESSION["name"] = $_POST["name"];
       header("Location: index.php");
       exit;
     }
@@ -82,7 +82,7 @@ if (isset($_POST["login"])) {
   <fieldset>
   <?php echo $errorMessage ?>
   <div class="input-group">
-    <span class="input-group-addon">ユーザ名</span><input type="text" id="username" name="username" value="test">
+    <span class="input-group-addon">ユーザ名</span><input type="text" id="name" name="name" value="test">
   </div>
   <div class="input-group">
   <span class="input-group-addon">パスワード</span><input type="password" id="password" name="password" value="test">

@@ -1,7 +1,7 @@
 <?php
 define( 'DB_NAME', 'cms' );//データベース名
 define( 'DB_USER', 'root' );//ユーザー名
-define( 'DB_PASS', 'password' );//パスワード 
+define( 'DB_PASS', 'password' );//パスワード
 define( 'DB_HOST', 'localhost' );//ホスト名
 define( 'DB_CHARSET', 'utf8' );//文字セット
 define( 'DB_COLLATE', '' );//照合順序
@@ -14,4 +14,4 @@ if ($mysqli->connect_error){
   exit();
 }
 
-?>
+$mysqlic = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_NAME);
