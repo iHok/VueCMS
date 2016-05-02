@@ -42,7 +42,7 @@ if ( !isset($_GET['alert']) || $_GET['alert'] == "" ){
 
 <ul class="list-group">
 	</ul>
-  <form method="POST" action="action.php?id=<?php echo $id ?>&action=post">
+  <form method="POST" action="index.php?id=<?php echo $id ?>&action=post">
         <div  class="input-group">
             ID：<?php echo $id ?><br>
             名前：<input name="name" type="text" class="form-control" value="<?php echo $name ?>"/><br>
