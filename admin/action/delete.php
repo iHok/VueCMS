@@ -11,7 +11,7 @@ $text = "戻る";
 if (empty($id)) {
     header("Location:index.php?action=delete");
 }else {// リファラ値があれば<a>タグ内へ
-    header("Location:index.php?id=".$id."&action=delete");
+    header("Location:index.php?id=".$id."&alart=delete");
 }
 
 

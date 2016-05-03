@@ -57,19 +57,18 @@ var example1 = new Vue({
 		    $error = $e->getMessage();
 		}
 		//header('Content-Type: text/html; charset=utf-8');
-		?>
-		<?php if (isset($error)): ?>
-		<?=h($error)?>
-		<?php else: ?>
-		<?php foreach ($rows as $row): ?>
+		if (isset($error)){
+			h($error);
+		}else{
+			foreach ($rows as $row){ ?>
 		{ message: '<?=h($row['name'])?>' }<?php $no++;if($no !== $length){echo ",";}?>
-
-		<?php endforeach; ?>
-		<?php endif; ?>
+			<?php }
+		} ?>
 
 	    ]
 	  }
 	})
 </script>
+b
     </body>
 </html>

@@ -8,7 +8,7 @@ $id = $_GET['id']; # $v1=30
 	<ul class="list-group">
     <br>
     <?php echo("$id"); ?> を削除します。<br>よろしいですか？
-    <form action="action.php?id=<?php echo("$id"); ?>&action=delete" method = "POST">
+    <form action="index.php?id=<?php echo("$id"); ?>&action=delete" method = "POST">
 		<button>削除する。</button>
 	</form>
 	</ul>
@@ -27,6 +27,3 @@ else {
 ?>
 </body>
 </html>
-<?php
-$mysqli->close();
-?>

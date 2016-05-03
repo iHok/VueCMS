@@ -1,3 +1,8 @@
+<table border>
+<tr><th>id</th><th>name</th><th>$message</th><th>category</th><th>created</th><th>削除</th></tr>
+
+
+
 <?php
 
 //datasテーブルから日付の降順でデータを取得
@@ -11,6 +16,18 @@ if($result){
 		$message = htmlspecialchars($row->message);
 		$category = htmlspecialchars($row->category);
 		$created = htmlspecialchars($row->created);
-		print("<li class='list-group-item'><a href='index.php?id=$id&layout=post'>$id</a>: $name ： $category ：$message / $created <a href='index.php?id=$id&layout=delete'>削除</a></li>");
-	}
+		print("<tr>
+	<td><a href='index.php?id=$id&layout=post'>$id</a></td>
+	<td>$name</td>
+	<td>$category</td>
+	<td>$message</td>
+	<td>$created</td>
+	<td><a href='index.php?id=$id&layout=delete'>削除</a></td>
+	</tr>
+	");}
 }
+?>
+
+
+</table>
+
