@@ -1,12 +1,16 @@
 <table border>
 <tr><th>id</th><th>name</th><th>$message</th><th>category</th><th>created</th><th>削除</th></tr>
 
-
-
 <?php
 
 //datasテーブルから日付の降順でデータを取得
-$result = $mysqli->query("SELECT * FROM datas ORDER BY created DESC");
+if(checkGet("category")){
+	$categorySearch = checkGet("category");
+	$result = $mysqli->query("SELECT * FROM datas WHERE category = '". $categorySearch ."' ORDER BY created DESC");
+	echo "SELECT * FROM datas WHERE category = '". $categorySearch ."' ORDER BY created DESC";
+}else{
+	$result = $mysqli->query("SELECT * FROM datas ORDER BY created DESC");
+}
 if($result){
 	//1行ずつ取り出し
 	while($row = $result->fetch_object()){
@@ -30,4 +34,6 @@ if($result){
 
 
 </table>
+
+
 

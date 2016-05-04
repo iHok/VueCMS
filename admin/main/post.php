@@ -27,6 +27,23 @@ if($result){
 }
 ?>
 
+<datalist id="test">
+<?php
+$result = $mysqli->query("select category, count(category) AS countCategory from datas group by category");
+if($result){
+
+		//1行ずつ取り出し
+	while($row = $result->fetch_object()){
+		//エスケープして表示
+		$category = htmlspecialchars($row->category);
+		$countCategory = htmlspecialchars($row->countCategory);
+		print("<option value='$category'>");
+	}
+}
+	echo "test";
+?>
+</datalist>
+
 <?php
 if ( !isset($_GET['alert']) || $_GET['alert'] == "" ){
 	echo "!issetのelse";
@@ -39,7 +56,6 @@ if ( !isset($_GET['alert']) || $_GET['alert'] == "" ){
 }
 ?>
 
-
 <ul class="list-group">
 	</ul>
   <form method="POST" action="index.php?id=<?php echo $id ?>&action=post">
@@ -48,7 +64,7 @@ if ( !isset($_GET['alert']) || $_GET['alert'] == "" ){
             名前：<input name="name" type="text" class="form-control" value="<?php echo $name ?>"/><br>
             タイトル：<input name="title" type="text" class="form-control" value="<?php echo $title ?>"/><br>
            <textarea name="message" type="text" class="form-control" rows="4" cols="40"/><?php echo $message ?></textarea><br>
-            カテゴリ：<input name="category" type="text" class="form-control" value="<?php echo $category ?>"/><br>
+            カテゴリ：<input name="category" type="text" class="form-control" value="<?php echo $category ?>" autocomplete="on" list="test"/><br>
             ファイル名：<input name="filename" type="text" class="form-control" value="<?php echo $filename ?>"/><br>
         <span class="input-group-btn">
           <button type='submit' class="btn btn-default">送信</button>
@@ -56,4 +72,5 @@ if ( !isset($_GET['alert']) || $_GET['alert'] == "" ){
         </div>
 </div>
         </form>
+
 <a href="index.php">戻る</a>
