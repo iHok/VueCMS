@@ -9,7 +9,7 @@ if ( !isset($_GET['id']) || $_GET['id'] == "" ){
     $stmt->bind_param('sssss', $_POST["name"], $_POST["title"], $_POST["message"], $_POST["category"], $_POST["filename"]);
     //実行
     $stmt->execute();
-    header("Location:". $_SERVER['HTTP_REFERER']."?id=".$mysqli->insert_id);
+    header("Location:". $_SERVER['HTTP_REFERER']."&id=".$mysqli->insert_id);
 } else{
     $id = $_GET['id']; # $v1=30
     $query = "UPDATE datas SET name = ? , title = ?, message = ? , category = ?,filename = ? WHERE id=" .$id;

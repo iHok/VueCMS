@@ -35,9 +35,9 @@ if($result){
 		//1行ずつ取り出し
 	while($row = $result->fetch_object()){
 		//エスケープして表示
-		$category = htmlspecialchars($row->category);
+		$categoryList = htmlspecialchars($row->category);
 		$countCategory = htmlspecialchars($row->countCategory);
-		print("<option value='$category'>");
+		print("<option value='$categoryList'>");
 	}
 }
 	echo "test";
