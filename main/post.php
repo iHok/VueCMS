@@ -56,8 +56,6 @@ if ( !isset($_GET['alert']) || $_GET['alert'] == "" ){
 }
 ?>
 
-<ul class="list-group">
-	</ul>
   <form method="POST" action="index.php?id=<?php echo $id ?>&action=post">
         <div  class="input-group">
             ID：<?php echo $id ?><br>
@@ -70,7 +68,20 @@ if ( !isset($_GET['alert']) || $_GET['alert'] == "" ){
           <button type='submit' class="btn btn-default">送信</button>
         </span>
         </div>
-</div>
         </form>
 
-<a href="index.php">戻る</a>
+
+  <form method="POST" action="index.php?id=2&action=post">
+		<h2 id="sample">タイトル<input name="title" type="text" class="form-control" value=""/></h2>
+            カテゴリ：<input name="category" type="text" class="form-control" value="" autocomplete="on" list="test"/><br>		<p>
+           <textarea name="message" type="text" class="form-control" rows="4" style="width:100%;"/></textarea><br>
+		</p>
+        <div  class="input-group">
+            名前：<input name="name" type="text" class="form-control" value=""><br>
+
+            ファイル名：<input name="filename" type="text" class="form-control" value=""/><br>
+        <span class="input-group-btn">
+          <button type='submit' class="btn btn-default">送信</button>
+        </span>
+        </div>
+  </form>

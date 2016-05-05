@@ -1,4 +1,14 @@
-<!DOCTYPE html>
+<?php
+require_once __DIR__.'/admin/include/mysqli.php';
+require_once __DIR__.'/admin/include/sessioncheck.php';
+
+    function CheckGet($name) {
+        return $hoge = filter_input(INPUT_GET, $name);
+    }
+    function CheckPost($name) {
+        return filter_input(INPUT_POST, $name);
+    }
+?><!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="utf-8">
@@ -30,18 +40,6 @@ $(function($){
 </style>
 </head>
 <body>
-
-<?php
-require_once __DIR__.'/admin/include/mysqli.php';
-
-    function CheckGet($name) {
-        return $hoge = filter_input(INPUT_GET, $name);
-    }
-    function CheckPost($name) {
-        return filter_input(INPUT_POST, $name);
-    }
-?>
-
 <header>
 	<h1><a href="index.html">HTML5/CSS3デザインテンプレート</a></h1>
 	<div class="tel"><span>&#9742;012-345-678</span></div>
@@ -79,30 +77,30 @@ require_once __DIR__.'/admin/include/mysqli.php';
     if($layout) {
     	$flag = false;
     	require __DIR__.'/layout.php';
-    } else{
+    }
 ?>
-  <form method="POST" action="index.php?id=2&action=post">
-		<h2 id="sample">タイトル<input name="title" type="text" class="form-control" value=""/></h2>
-            カテゴリ：<input name="category" type="text" class="form-control" value="" autocomplete="on" list="test"/><br>		<p>
-           <textarea name="message" type="text" class="form-control" rows="4" style="width:100%;"/></textarea><br>
-		</p>
-        <div  class="input-group">
-            名前：<input name="name" type="text" class="form-control" value=""><br>
 
-            ファイル名：<input name="filename" type="text" class="form-control" value=""/><br>
-        <span class="input-group-btn">
-          <button type='submit' class="btn btn-default">送信</button>
-        </span>
-        </div>
-  </form>
-		<h2>h2タグ(2017/10/10)</h2>
-		<p>本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文</p>
-		<a href="#">続きを読む</a>
-	</div><!-- /#main -->
+<div id="example-1">
+	<div v-for="item in items">
+		<h2>{{ item.title }}</h2>
+		<div>カテゴリ：{{ item.category }}　投稿日付：{{ item.created }}</div>
+		<p>{{ item.message }}</p>
+		<a href="?post={{ item.id }}">続きを読む</a>
+	</div>
+</div>
+</div><!-- /#main -->
 	<div id="sub">
+		<ul class="submenu">
 		<h3>見出しh3タグ</h3>
-		<ul class="submenu" id="example-1">
-			<li v-for="item in items"><a href="index.html">{{ item.message }}</a></li>
+			<li><a href="index.html">aaaa</a></li>
+			<li><a href="index.html">aaaa</a></li>
+			<li><a href="index.html">aaaa</a></li>
+			<li><a href="index.html">aaaa</a></li>
+			<li><a href="index.html">aaaa</a></li>
+			<li><a href="index.html">aaaa</a></li>
+			<li><a href="index.html">aaaa</a></li>
+			<li><a href="index.html">aaaa</a></li>
+			<li><a href="index.html">aaaa</a></li>
 		</ul>
 	</div><!-- /#sub -->
 </div><!-- /#contents -->
@@ -129,6 +127,10 @@ var example1 = new Vue({
 	  data: {
 	    items: [
 <?php
+
+$page = (checkGet("page")) ? ($_GET['page']-1) * 20 : 0;
+//datasテーブルから日付の降順でデータを取得
+
 		function h($str) {
 		    return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
 		}
@@ -136,7 +138,13 @@ var example1 = new Vue({
 		try {
 //		    $mysqli = new mysqli('localhost', 'root', '', 'testdb');
 		    $mysqli->set_charset('utf8');
-		    $rows = $mysqli->query('SELECT * FROM datas ORDER BY created DESC')->fetch_all(MYSQLI_ASSOC);
+		    if(checkGet("category")){
+		    	$categorySearch = checkGet("category");
+		    	$rows = $mysqli->query("SELECT * FROM datas WHERE category = '". $categorySearch ."' ORDER BY created DESC LIMIT 20 OFFSET ". $page)->fetch_all(MYSQLI_ASSOC);
+		    	echo "SELECT * FROM datas WHERE category = '". $categorySearch ."' ORDER BY created DESC";
+		    }else{
+		    	$rows = $mysqli->query("SELECT * FROM datas ORDER BY created DESC LIMIT 45 OFFSET ". $page)->fetch_all(MYSQLI_ASSOC);
+		    }
 		    $length = count($rows);     // 追加
 		    $no = 0;    // 追加
 
@@ -148,8 +156,16 @@ var example1 = new Vue({
 			h($error);
 		}else{
 			foreach ($rows as $row){ ?>
-		{ message: '<?=h($row['name'])?>' }<?php $no++;if($no !== $length){echo ",";}?>
-			<?php }
+				{ id: '<?=h($row['id']);
+				?>',name: '<?=h($row['name']);
+				?>',title: '<?=h($row['title']);
+				?>',message: '<?=str_replace(array("\r", "\n"), '',h($row['message']));
+				?>',category: '<?=h($row['category']);
+				?>',filename: '<?=h($row['filename']);
+				?>',created: '<?=h($row['created']);
+				?>' }<?php $no++;if($no !== $length){echo ",";}?>
+
+<?php }
 		} ?>
 
 	    ]
