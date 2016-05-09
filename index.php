@@ -24,12 +24,12 @@ require_once __DIR__.'/include/sessioncheck.php';
 <meta name="viewport" content="width=device-width">
 <meta name="keywords" content="">
 <meta name="description" content="">
-<link rel="stylesheet" type="text/css" href="/css/style.css">
-<script type="text/javascript" src="/js/jquery.js"></script>
-<script type="text/javascript" src="/js/script.js"></script>
-<script type="text/javascript" src="/js/jquery.smoothscroll.js"></script>
-<script type="text/javascript" src="/js/jquery.scrollshow.js"></script>
-<script type="text/javascript" src="/js/jquery.rollover.js"></script>
+<link rel="stylesheet" type="text/css" href="/VueCMS/css/style.css">
+<script type="text/javascript" src="/VueCMS/js/jquery.js"></script>
+<script type="text/javascript" src="/VueCMS/js/script.js"></script>
+<script type="text/javascript" src="/VueCMS/js/jquery.smoothscroll.js"></script>
+<script type="text/javascript" src="/VueCMS/js/jquery.scrollshow.js"></script>
+<script type="text/javascript" src="/VueCMS/js/jquery.rollover.js"></script>
 <script>
 $(function($){
 	$('html').smoothscroll({easing : 'swing', speed : 1000, margintop : 10});
