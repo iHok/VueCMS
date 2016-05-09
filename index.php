@@ -99,7 +99,6 @@ $(function($){
 	</div>
 	<div class="copyright">Copyright &#169; 20XX - 20XX SITENAME All Rights Reserved.</div>
 </footer>
-
 <div class="totop"><a href="#"><img src="images/totop.png" alt="ページのトップへ戻る"></a></div><!-- /.totop -->
 
 </body>
