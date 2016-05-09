@@ -1,4 +1,4 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 
 /*================================================
  *  CSSリセット
@@ -94,8 +94,15 @@ h6 {
 	font-weight:bold;
 }
 
-p {
+p,#main_list > div {
 	margin:0 0 1em 0;
+}
+
+#main_list p {
+	margin:0 0 0 0;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 img {
