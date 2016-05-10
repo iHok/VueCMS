@@ -16,7 +16,7 @@ if($result){
     $id = htmlspecialchars($row->id);
     $name = htmlspecialchars($row->name);
     $title = htmlspecialchars($row->title);
-    $message = htmlspecialchars($row->message);
+    $message = nl2br(htmlspecialchars($row->message));
     $category = htmlspecialchars($row->category);
     $filename = htmlspecialchars($row->filename);
     $created = htmlspecialchars($row->created);
@@ -30,6 +30,7 @@ if($result){
 		<h2><?php echo $title ?></h2>
 		<p><?php echo $message ?></p>
 		<div>カテゴリ：<?php echo $category ?>　投稿者：<?php echo $name ?>　投稿日付：<?php echo $created ?></div>
-<?php echo "　<a href ='?id=$id&layout=post'>この記事を修正する</a>"; ?>
-<?php echo "　<a href ='?id=$id&layout=delete'>この記事を削除する</a>"; ?>
-	</div>
+<?php if (isset($_SESSION["name"])) {
+			echo "　<a href ='?id=$id&layout=post'>この記事を修正する</a>";
+			echo "　<a href ='?id=$id&layout=delete'>この記事を削除する</a>";
+			}?></div>

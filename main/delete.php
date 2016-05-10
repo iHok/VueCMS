@@ -7,7 +7,7 @@ $id = $_GET['id']; # $v1=30
 
 	<ul class="list-group">
     <br>
-    <?php echo("$id"); ?> を削除します。<br>よろしいですか？
+    ID: <?php echo("$id"); ?> の投稿を削除します。<br>よろしいですか？
     <form action="index.php?id=<?php echo("$id"); ?>&action=delete" method = "POST">
 		<button>削除する。</button>
 	</form>
