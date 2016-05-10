@@ -58,12 +58,12 @@ if($result){
 
 <?php
 if ( !isset($_GET['alert']) || $_GET['alert'] == "" ){
-	echo "!issetのelse";
+
 } else {
 	if ( $_GET['alert'] === "update" ){
-		echo $id."の記事をアップデートしました。";
-	} else {
-		echo "alertのelse";
+		echo "ID:".$id."の記事をアップデートしました。";
+	} else	if ( $_GET['alert'] === "post" ){
+		echo "以下の記事を新規投稿しました。";
 	}
 }
 ?>
@@ -71,8 +71,9 @@ if ( !isset($_GET['alert']) || $_GET['alert'] == "" ){
   <form method="POST" action="index.php?<?php if($id)echo "id=$id&"; ?>layout=post&action=post">
         <div class="input-group">
             ID：<?php echo $id ?><br>
-            名前：<input name="name" type="text" class="form-control" value="<?php echo $_SESSION["name"] ?>" autocomplete="on" list="name_value"/><br>
+            投稿者名:<input name="name" type="text" class="form-control" value="<?php echo $_SESSION["name"] ?>" autocomplete="on" list="name_value"/><br>
             タイトル(必須)：<input name="title" type="text" class="form-control" value="<?php echo $title ?>" required/><br>
+      本文<br>
            <textarea name="message" type="text" class="form-control" rows="4" cols="40"/><?php echo $message ?></textarea><br>
             カテゴリ(必須)：<input name="category" type="text" class="form-control" value="<?php echo $category ?>" autocomplete="on" list="category_value"  required/><br>
           <button type='submit' class="btn btn-default">送信</button>

@@ -2,7 +2,7 @@
 		<div v-for="item in items">
 			<h2>{{ item.title }}</h2>
 			<p>{{ item.message }}</p>
-			<div>カテゴリ：{{ item.category }}　投稿日付：{{ item.created }}</div>
+			<div>カテゴリ：{{ item.category }}　投稿日付：{{ item.created }}　投稿者：{{ item.name }}</div>
 			<a href="?id={{ item.id }}">続きを読む</a><?php if (isset($_SESSION["name"])) {
 			echo "　<a href ='?id={{ item.id }}&layout=post'>この記事を修正する</a>";
 			echo "　<a href ='?id={{ item.id }}&layout=delete'>この記事を削除する</a>";
@@ -22,15 +22,15 @@ $page = (checkGet("page")) ? ($_GET['page']-1) * 10 : 0;
 		mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 		try {
 //		    $mysqli = new mysqli('localhost', 'root', '', 'testdb');
-		    $mysqli->set_charset('utf8');
+//		    $mysqli->set_charset('utf8');
 		    if(checkGet("category")){
 		    	$categorySearch = checkGet("category");
-		    	$rows = $mysqli->query("SELECT * FROM datas WHERE category = '". $categorySearch ."' ORDER BY created DESC LIMIT 10 OFFSET ". $page)->fetch_all(MYSQLI_ASSOC);
+		    	$rows = $mysqli->query("SELECT * FROM datas WHERE category = '". $categorySearch ."' ORDER BY created DESC LIMIT 10 OFFSET ". $page);
 //		    	echo "SELECT * FROM datas WHERE category = '". $categorySearch ."' ORDER BY created DESC";
 		    }else{
-		    	$rows = $mysqli->query("SELECT * FROM datas ORDER BY created DESC LIMIT 10 OFFSET ". $page)->fetch_all(MYSQLI_ASSOC);
+		    	$rows = $mysqli->query("SELECT * FROM datas ORDER BY created DESC LIMIT 10 OFFSET ". $page);
 		    }
-		    $length = count($rows);     // 追加
+		    $length = mysqli_num_rows($rows);    // 追加
 		    $no = 0;    // 追加
 
 		} catch (mysqli_sql_exception $e) {
@@ -46,7 +46,6 @@ $page = (checkGet("page")) ? ($_GET['page']-1) * 10 : 0;
 				?>',title: '<?=h($row['title']);
 				?>',message: '<?=str_replace(array("\r", "\n"), '',h($row['message']));
 				?>',category: '<?=h($row['category']);
-				?>',filename: '<?=h($row['filename']);
 				?>',created: '<?=h($row['created']);
 				?>' }<?php $no++;if($no !== $length){echo ",";}?>
 

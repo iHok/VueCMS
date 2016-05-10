@@ -20,7 +20,7 @@ require_once __DIR__.'/include/sessioncheck.php';
 <html lang="ja">
 <head>
 <meta charset="utf-8">
-<title>フリーHTML5/CSS3ホームページテンプレート NO.002</title>
+<title>VueCMS</title>
 <meta name="viewport" content="width=device-width">
 <meta name="keywords" content="">
 <meta name="description" content="">
@@ -87,7 +87,7 @@ $(function($){
 <footer>
 	<div class="footmenu">
 		<ul>
-			<li><a href="index.html">HOME</a></li>
+			<li><a href="index.php">HOME</a></li>
 <?php if (isset($_SESSION["name"])) ?><?php if (!isset($_SESSION["name"])){
 		echo "<li><a href='?layout=login'>ログイン</a></li>";
 	} else {

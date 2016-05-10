@@ -28,9 +28,9 @@ var categorylist = new Vue({
 
 		mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 		try {
-		    $mysqli->set_charset('utf8');
-	    	$rows = $mysqli->query("select category, count(category) AS countCategory from datas group by category")->fetch_all(MYSQLI_ASSOC);
-		    $length = count($rows);     // 追加
+//		    $mysqli->set_charset('utf8');
+	    	$rows = $mysqli->query("select category, count(category) AS countCategory from datas group by category ORDER BY countCategory DESC");
+		    $length = mysqli_num_rows($rows);     // 追加
 		    $no = 0;    // 追加
 
 		} catch (mysqli_sql_exception $e) {

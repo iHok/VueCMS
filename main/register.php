@@ -7,11 +7,12 @@ $status = "none";
 
 if(!empty($_POST["name"]) && !empty($_POST["password"])){
   //パスワードはハッシュ化する
+  $name = $_POST["name"];
   $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
   //ユーザ入力を使用するのでプリペアドステートメントを使用
   $stmt = $mysqli->prepare("INSERT INTO users (name,password) VALUES (?, ?)");
-  $stmt->bind_param('ss', $_POST["name"], $password);
+  $stmt->bind_param('ss', $name, $password);
 
   if($stmt->execute())
     $status = "ok";

@@ -1,6 +1,6 @@
 		<ul class="submenu"  id="latest_list">
 		<h3>最近投稿された5件</h3>
-			<li v-for="latest in latests"><a href="?id={{ latest.id }}">{{ latest.title }}</a></li>
+			<li v-for="latest in latests"><a href="?id={{ latest.id }}">{{ latest.title }}({{latest.created}})</a></li>
 		</ul>
 
 <script>
@@ -14,9 +14,9 @@ var latestlist = new Vue({
 
 		mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 		try {
-		    $mysqli->set_charset('utf8');
-	    	$rows = $mysqli->query("select id, title from datas order by created DESC limit 5")->fetch_all(MYSQLI_ASSOC);
-		    $length = count($rows);     // 追加
+//		    $mysqli->set_charset('utf8');
+	    	$rows = $mysqli->query("select id, title ,created from datas order by created DESC limit 5");
+		    $length = mysqli_num_rows($rows);     // 追加
 		    $no = 0;    // 追加
 
 		} catch (mysqli_sql_exception $e) {
@@ -29,6 +29,7 @@ var latestlist = new Vue({
 			foreach ($rows as $row){ ?>
 				{ id: '<?=h($row['id']);
 				?>',title: '<?=h($row['title']);
+				?>',created: '<?=substr(h($row['created']),0,10);
 				?>' }<?php $no++;if($no !== $length){echo ",";}?>
 
 		<?php }
